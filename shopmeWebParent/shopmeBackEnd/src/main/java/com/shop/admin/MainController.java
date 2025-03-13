@@ -13,15 +13,6 @@ public class MainController {
 		return "index";
 	}
 	
-	
-	@GetMapping("")
-	public String hello()
-	{
-		return "hello";
-	}
-	
-	
-	
-	
+
 
 }
