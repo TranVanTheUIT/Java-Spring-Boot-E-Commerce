@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta   name="viewport" content="width=device-width; initial-scale=1.0, minimum-scale=1.0">
-    <title>Home - Shopme Admin</title>
+    <title>Create new user</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <script type="text/javascript " th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -70,51 +70,78 @@
         </div>
 
         <div>
-            <h2>Manage Users</h2>
-			<a th:href="@{/users/new}">Create New User</a>
-        </div>
-
-        <div th:if="${message != nul}" class="alert alert-success text-center">
-            [[${message}]]
+            <h2>Manage Users | Create new user</h2>
 
         </div>
+        <form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto"
+            th:object="${user}">
+            <div class="border border-secondary rounded p-3">
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> E-mail</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" th:field="*{email}" required minlength="8">
+                    </div>
+                </div>
 
-        <div>
-            <table class="table table-responsive-xl table-bordered table-striped table-hover">
-                <thead   class="thead-dark">
-                    <tr>
-                        <th>Id</th>
-                        <th>Email</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Roles</th>
-                        <th>Enable</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${listUsers}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td>
-                            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
-                        </td>
-                        <td th:text="${user.enabled}"></td>
-                        <td>
-                            <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-primary">Edit</a>
-                            <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> First Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{firstName}" required minlength="2">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> Last Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{lastName}" required minlength="2">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> Password</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> Role</label>
+                    <div class="col-sm-8">
+                       <th:block th:each="role : ${listRoles}">
+                            <input type="checkbox" th:field="*{roles}" th:value="${role.id}" th:text="${role.name}" class="m-2">
+                           - <small>[[${role.description}]]</small>
+                           <br>
+                       </th:block>
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label  class="col-sm-4 col-form-label"> Enable</label>
+                    <div class="col-sm-8">
+                        <input type="checkbox"  th:field="*{enabled}" >
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" value="save" class="btn btn-primary">save</button>
+                    <button type="button" value="cancel" class="btn btn-secondary" id="butonCancel">cancel</button>
+                </div>
+            </div>
+        </form>
 
         <div>
             <p></p>
         </div>
 
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#butonCancel').click(function (){
+                window.location.href = '/users';
+            });
+        });
+    </script>
 </body>
 </html>
