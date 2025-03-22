@@ -6,6 +6,8 @@
     <title>Home - Shopme Admin</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link  rel="stylesheet" type="text/css" th:href="@{/fontawsome/all.css}"/>
+    <link  rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <script type="text/javascript " th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript " th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
@@ -29,7 +31,7 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/categories}">Categories</a>
                         </li>
-                        <li class="nav-item"> 
+                        <li class="nav-item">
                             <a class="nav-link" th:href="@{/users}">User</a>
                         </li>
                         <li class="nav-item">
@@ -70,7 +72,47 @@
         </div>
 
         <div>
-            <h1>Shopme Control panel</h1>
+            <h2>Manage Users</h2>
+			<a th:href="@{/users/new}">Create New User</a>
+        </div>
+
+        <div th:if="${message != nul}" class="alert alert-success text-center">
+            [[${message}]]
+
+        </div>
+
+        <div>
+            <table class="table table-responsive-xl table-bordered table-striped table-hover">
+                <thead   class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Photos</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Roles</th>
+                        <th>Enable</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${listUsers}">
+                        <td th:text="${user.id}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td> <span class="fas fa-portrait fa-3x icon-drak"></span></td>
+                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.lastName}"></td>
+                        <td>
+                            <span th:each="role : ${user.roles}" th:text="${role.name}"></span>
+                        </td>
+                        <td th:text="${user.enabled}"></td>
+                        <td>
+                            <a th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user" class="btn btn-primary fas fa-edit fa-2x icon-green"></a>
+                            <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger fas fa-trash fa-2x icon-drak"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div>
