@@ -6,6 +6,8 @@
     <title>Home - Shopme Admin</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link  rel="stylesheet" type="text/css" th:href="@{/fontawsome/all.css}"/>
+    <link  rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <script type="text/javascript " th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript " th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
@@ -85,6 +87,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Email</th>
+                        <th>Photos</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Roles</th>
@@ -96,6 +99,7 @@
                     <tr th:each="user : ${listUsers}">
                         <td th:text="${user.id}"></td>
                         <td th:text="${user.email}"></td>
+                        <td> <span class="fas fa-portrait fa-3x icon-drak"></span></td>
                         <td th:text="${user.firstName}"></td>
                         <td th:text="${user.lastName}"></td>
                         <td>
@@ -103,8 +107,8 @@
                         </td>
                         <td th:text="${user.enabled}"></td>
                         <td>
-                            <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-primary">Edit</a>
-                            <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger">Delete</a>
+                            <a th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user" class="btn btn-primary fas fa-edit fa-2x icon-green"></a>
+                            <a th:href="@{/users/delete/{id}(id=${user.id})}" class="btn btn-danger fas fa-trash fa-2x icon-drak"></a>
                         </td>
                     </tr>
                 </tbody>
